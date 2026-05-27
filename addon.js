@@ -54,4 +54,6 @@ builder.defineStreamHandler(async ({ type, id }) => {
   return { streams: sorted }
 })
 
-serveHTTP(builder.getInterface(), { port: process.env.PORT || 3000 })
+serveHTTP(builder.getInterface(), {
+  port: process.env.PORT || 3000
+})
