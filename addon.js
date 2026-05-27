@@ -10,6 +10,7 @@ const manifest = {
   description: 'Smart stream sorting addon',
   resources: ['stream'],
   types: ['movie', 'series'],
+  catalogs: [],
   idPrefixes: ['tt']
 }
 
