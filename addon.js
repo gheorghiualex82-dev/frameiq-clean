@@ -1,5 +1,7 @@
-import { addonBuilder, serveHTTP } from 'stremio-addon-sdk'
+import pkg from 'stremio-addon-sdk'
 import parseTorrentTitle from 'parse-torrent-title'
+
+const { addonBuilder, serveHTTP } = pkg
 
 const manifest = {
   id: 'org.frameiq.clean',
