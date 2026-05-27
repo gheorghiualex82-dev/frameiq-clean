@@ -1,0 +1,13 @@
+{
+  "name": "frameiq-clean",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "addon.js",
+  "scripts": {
+    "start": "node addon.js"
+  },
+  "dependencies": {
+    "stremio-addon-sdk": "^1.6.10",
+    "parse-torrent-title": "^1.3.2"
+  }
+}
