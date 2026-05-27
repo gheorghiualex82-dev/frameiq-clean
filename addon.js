@@ -37,15 +37,23 @@ function scoreStream(title = '') {
 builder.defineStreamHandler(async ({ type, id }) => {
 
   const streams = [
-    {
-      title: '4K REMUX DV ATMOS',
-      url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
-    },
-    {
-      title: '1080p HDR',
-      url: 'https://test-streams.mux.dev/test_001/stream.m3u8'
-    }
-  ]
+  {
+    title: '4K REMUX DV ATMOS',
+    url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
+  },
+  {
+    title: '2160p WEB-DL HDR10+',
+    url: 'https://test-streams.mux.dev/test_001/stream.m3u8'
+  },
+  {
+    title: '1080p BluRay DTS',
+    url: 'https://test-streams.mux.dev/dai-discontinuity-deltatre/manifest.m3u8'
+  },
+  {
+    title: '720p WEBRip AAC',
+    url: 'https://test-streams.mux.dev/pts_shift/master.m3u8'
+  }
+]
 
   const sorted = streams
     .map(stream => ({
