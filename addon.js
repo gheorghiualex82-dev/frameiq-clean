@@ -37,7 +37,7 @@ function scoreStream(title = '') {
 builder.defineStreamHandler(async ({ type, id }) => {
 
   const response = await fetch(
-  `https://torrentio.strem.fun/stream/${type}/${id}.json`
+  `https://comet.elfhosted.com/stream/${type}/${id}.json`
 )
 
 const data = await response.json()
