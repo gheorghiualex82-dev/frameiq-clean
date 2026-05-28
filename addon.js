@@ -67,3 +67,15 @@ builder.defineStreamHandler(async ({ type, id }) => {
   .sort((a, b) => b.score - a.score)
 
 return { streams: sorted }
+} catch (e) {
+
+  console.log(e)
+
+  return { streams: [] }
+
+}
+})
+
+serveHTTP(builder.getInterface(), {
+  port: process.env.PORT || 3000
+})
