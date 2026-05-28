@@ -59,3 +59,13 @@ const sorted = streams
     ...scoreStream(stream.title || '')
   }))
   .sort((a, b) => b.score - a.score)
+return { streams: sorted }
+
+} catch (e) {
+
+  console.log(e)
+
+  return { streams: [] }
+
+}
+})
