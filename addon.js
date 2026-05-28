@@ -65,7 +65,11 @@ return { streams: sorted }
 
   console.log(e)
 
-  return { streams: [] }
+return { streams: [] }
 
 }
+})
+
+serveHTTP(builder.getInterface(), {
+  port: process.env.PORT || 3000
 })
