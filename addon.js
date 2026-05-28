@@ -1,5 +1,8 @@
 import pkg from 'stremio-addon-sdk'
-import parseTorrentTitle from 'parse-torrent-title'
+import parseTorrentTitlePkg from 'parse-torrent-title'
+
+const parseTorrentTitle =
+  parseTorrentTitlePkg.default || parseTorrentTitlePkg
 
 const { addonBuilder, serveHTTP } = pkg
 
