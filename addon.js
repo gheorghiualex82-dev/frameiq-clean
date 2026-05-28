@@ -35,26 +35,34 @@ function scoreStream(title = '') {
 }
 
 builder.defineStreamHandler(async ({ type, id }) => {
+  try {
 
-  const response = await fetch(
-`https://comet.feels.legal/eyJtYXhSZXN1bHRzUGVyUmVzb2x1dGlvbiI6OCwibWF4U2l6ZSI6ODU4OTkzNDU5MjAsImNhY2hlZE9ubHkiOnRydWUsInNvcnRDYWNoZWRVbmNhY2hlZFRvZ2V0aGVyIjpmYWxzZSwicmVtb3ZlVHJhc2giOnRydWUsInJlc3VsdEZvcm1hdCI6WyJhbGwiXSwiZGVicmlkU2VydmljZXMiOlt7InNlcnZpY2UiOiJyZWFsZGVicmlkIiwiYXBpS2V5IjoiN1NFRktIRUdGQ0VIV1lHTlozNFBYSUVZVlhWWERKR0QyMlpEUE9HU1lVTlJSVFNBV1BUQSJ9XSwiZW5hYmxlVG9ycmVudCI6ZmFsc2UsImRlZHVwbGljYXRlU3RyZWFtcyI6dHJ1ZSwic2NyYXBlRGVicmlkQWNjb3VudFRvcnJlbnRzIjpmYWxzZSwiZGVicmlkU3RyZWFtUHJveHlQYXNzd29yZCI6IiIsImxhbmd1YWdlcyI6eyJyZXF1aXJlZCI6W10sImFsbG93ZWQiOltdLCJleGNsdWRlIjpbXSwicHJlZmVycmVkIjpbXX0sInJlc29sdXRpb25zIjp7fSwib3B0aW9ucyI6eyJyZW1vdmVfcmFua3NfdW5kZXIiOi0xMDAwMDAwMDAwMCwiYWxsb3dfZW5nbGlzaF9pbl9sYW5ndWFnZXMiOmZhbHNlLCJyZW1vdmVfdW5rbm93bl9sYW5ndWFnZXMiOmZhbHNlfX0=/stream/${type}/${id}.json`
+    const response = await fetch(
+      `https://comet.feels.legal/eyJtYXhSZXN1bHRzUGVyUmVzb2x1dGlvbiI6OCwibWF4U2l6ZSI6ODU4OTkzNDU5MjAsImNhY2hlZE9ubHkiOnRydWUsInNvcnRDYWNoZWRVbmNhY2hlZFRvZ2V0aGVyIjpmYWxzZSwicmVtb3ZlVHJhc2giOnRydWUsInJlc3VsdEZvcm1hdCI6WyJhbGwiXSwiZGVicmlkU2VydmljZXMiOlt7InNlcnZpY2UiOiJyZWFsZGVicmlkIiwiYXBpS2V5IjoiN1NFRktIRUdGQ0VIV1lHTlozNFBYSUVZVlhWWERKR0QyMlpEUE9HU1lVTlJSVFNBV1BUQSJ9XSwiZW5hYmxlVG9ycmVudCI6ZmFsc2UsImRlZHVwbGljYXRlU3RyZWFtcyI6dHJ1ZSwic2NyYXBlRGVicmlkQWNjb3VudFRvcnJlbnRzIjpmYWxzZSwiZGVicmlkU3RyZWFtUHJveHlQYXNzd29yZCI6IiIsImxhbmd1YWdlcyI6eyJyZXF1aXJlZCI6W10sImFsbG93ZWQiOltdLCJleGNsdWRlIjpbXSwicHJlZmVycmVkIjpbXX0sInJlc29sdXRpb25zIjp7fSwib3B0aW9ucyI6eyJyZW1vdmVfcmFua3NfdW5kZXIiOi0xMDAwMDAwMDAwMCwiYWxsb3dfZW5nbGlzaF9pbl9sYW5ndWFnZXMiOmZhbHNlLCJyZW1vdmVfdW5rbm93bl9sYW5ndWFnZXMiOmZhbHNlfX0=/stream/${type}/${id}.json`
     )
-const data = await response.json()
 
-console.log(data)
+    const data = await response.json()
 
-const streams = data.streams || []
+    console.log(data)
 
-  const sorted = streams
-    .map(stream => ({
-      ...stream,
-      ...scoreStream(stream.title)
-    }))
-    .sort((a, b) => b.score - a.score)
+    const streams = Array.isArray(data.streams)
+      ? data.streams
+      : []
 
-  return { streams: sorted }
-})
+    const sorted = streams
+      .map(stream => ({
+        ...stream,
+        ...scoreStream(stream.title || '')
+      }))
+      .sort((a, b) => b.score - a.score)
 
-serveHTTP(builder.getInterface(), {
-  port: process.env.PORT || 3000
+    return { streams: sorted }
+
+  } catch (e) {
+
+    console.log(e)
+
+    return { streams: [] }
+
+  }
 })
