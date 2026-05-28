@@ -41,6 +41,8 @@ builder.defineStreamHandler(async ({ type, id }) => {
     )
 const data = await response.json()
 
+console.log(data)
+
 const streams = data.streams || []
 
   const sorted = streams
