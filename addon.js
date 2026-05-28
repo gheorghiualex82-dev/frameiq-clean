@@ -52,33 +52,10 @@ builder.defineStreamHandler(async ({ type, id }) => {
       ? data.streams
       : []
 
-    const sorted = streams
-  .map(stream => {
-    const scored = scoreStream(stream.title || '')
-
-    return {
-      name: 'FrameIQ Clean',
-      title: stream.title || 'Unknown',
-      url: stream.url,
-      infoHash: stream.infoHash,
-      fileIdx: stream.fileIdx,
-      behaviorHints: stream.behaviorHints,
-      sources: stream.sources,
-      score: scored.score
-    }
-  })
+const sorted = streams
+  .map(stream => ({
+    ...stream,
+    name: 'FrameIQ Clean',
+    ...scoreStream(stream.title || '')
+  }))
   .sort((a, b) => b.score - a.score)
-
-return { streams: sorted }
-} catch (e) {
-
-  console.log(e)
-
-  return { streams: [] }
-
-}
-})
-
-serveHTTP(builder.getInterface(), {
-  port: process.env.PORT || 3000
-})
